@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "firelord"
+version = "0.1.0"
+description = ""
+authors = ["Chris Dare <engineering@chrisdare.me>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pandas = "^1.1.4"
+sklearn = "^0.0"
+lightgbm = "^3.0.0"
+catboost = "^0.24.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^20.8b1"
+isort = "^5.6.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

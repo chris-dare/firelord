@@ -1,0 +1,8 @@
+catboost
+fastapi
+joblib
+lightgbm
+pandas
+sklearn
+streamlit
+uvicorn
