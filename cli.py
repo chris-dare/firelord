@@ -10,12 +10,12 @@ import joblib
 import typer
 from sklearn.metrics import classification_report
 
-from firelord.model import train 
+from firelord.model import train
 from firelord.preprocess import get_training_dataset
 
+
 def main(
-    model_folder_path: str,
-    separating_date: Optional[str] = "2013-01-01",
+    model_folder_path: str, separating_date: Optional[str] = "2013-01-01",
 ):
     """Main serves as the entry point to train the machine learning model
 
@@ -45,7 +45,9 @@ def main(
     valid_ = training_data.loc[training_data.date > date_split]
     date_split = "2013-01-01"
 
-    model = train(features=features, train_=train_, valid_=train_, target_col = "burn_area")
+    model = train(
+        features=features, train_=train_, valid_=train_, target_col="burn_area"
+    )
     predictions = model.predict(train_)
     metrics = classification_report(valid_, predictions)
     print(f"Finished training model \n {model} \n\n")

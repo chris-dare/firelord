@@ -5,6 +5,7 @@ a function to train an instance of the predictive model used in this application
 from pathlib import Path
 from typing import Optional, List
 
+import pandas as pd
 import LGBMRegressor, XGBRegressor
 from sklearn.ensemble import RandomForestRegressor, VotingRegressor
 from sklearn.linear_model import RidgeCV
@@ -99,38 +100,41 @@ def hyperParameterTuning(X_train, y_train, xgb_model):
     return gsearch.best_params_
 
 
-def train(features: List[str]):
-    in_cols = [
-        "climate_vs",
-        "climate_def",
-        "climate_vap",
-        "climate_aet",
-        "precipitation",
-        "landcover_5",
-    ]
-    target_col = "burn_area"
-    date_split = "2013-01-01"
-    train_all = get_training_dataset()
-    train_ = train_all.loc[train_all.date < date_split]
-    valid_ = train_all.loc[train_all.date > date_split]
+def train(
+    features: List[str], target_col: str, train_: pd.DataFrame, valid_: pd.DataFrame
+):
+    # target_col = "burn_area"
+    # date_split = "2013-01-01"
+    # train_all = get_training_dataset()
+    # train_ = train_all.loc[train_all.date < date_split]
+    # valid_ = train_all.loc[train_all.date > date_split]
 
-    X_train, y_train = train_[in_cols], train_[target_col]
-    X_valid, y_valid = valid_[in_cols], valid_[target_col]
+    X_train, y_train = train_[features], train_[target_col]
+    X_valid, y_valid = valid_[features], valid_[target_col]
 
-    xgb_model = xgb.XGBRegressor(n_estimators=300, max_depth=3, colsample_bytree=0.5, objective='reg:squarederror')
-    
+    xgb_model = xgb.XGBRegressor(
+        n_estimators=300,
+        max_depth=3,
+        colsample_bytree=0.5,
+        objective="reg:squarederror",
+    )
+
     xgb_model.fit(X_train, y_train)
 
-    # cat_model=CatBoostRegressor(iterations=300, depth=5, learning_rate=0.1, loss_function='RMSE')
-    # cat_model.fit(X_train, y_train,eval_set=(X_valid, y_valid),plot=True)
+    cat_model = CatBoostRegressor(
+        iterations=300, depth=5, learning_rate=0.1, loss_function="RMSE"
+    )
+    cat_model.fit(X_train, y_train, eval_set=(X_valid, y_valid), plot=True)
 
-    lgb_model = lgb.LGBMRegressor(n_estimators=100, max_depth=8, num_leaves=6, objective="regression")
+    lgb_model = lgb.LGBMRegressor(
+        n_estimators=100, max_depth=8, num_leaves=6, objective="regression"
+    )
     lgb_model.fit(X_train, y_train)
 
-    # voting_regressor = VotingRegressor([('xgb', xgb_model), ('cat', cat_model), ('lgb', lgb_model)])
-    voting_regressor = VotingRegressor([('xgb', xgb_model), ('lgb', lgb_model)])
+    voting_regressor = VotingRegressor(
+        [("xgb", xgb_model), ("cat", cat_model), ("lgb", lgb_model)]
+    )
+    # voting_regressor = VotingRegressor([('xgb', xgb_model), ('lgb', lgb_model)])
     voting_regressor.fit(X_train, y_train)
 
     return voting_regressor
-
-    
