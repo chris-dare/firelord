@@ -5,7 +5,6 @@ from pydantic import BaseModel
 
 
 class LandProfile(BaseModel):
-
     climate_vs: float
     climate_def: float
     climate_vap: float
