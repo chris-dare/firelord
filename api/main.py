@@ -8,7 +8,7 @@ from .profiles import LandProfile
 from .scoring import get_model
 
 app = FastAPI()
-# model = get_model()
+model = get_model()
 
 
 @app.get("/")
@@ -21,11 +21,9 @@ def root():
 @app.post("/score")
 def score(profile: LandProfile):
     # return profile.dict()
-    # features = pd.DataFrame.from_dict(profile.dict())
-    payload = profile
-    print(profile.dict())
-    # score = model.predict(features)
-    # payload = features.to_dict()
-    # logging.INFO(payload)
+    features = pd.DataFrame(profile.dict(), index=[0])
+    # payload = model.predict(features)
+    payload = features
+    print(payload)
     status = True 
     response = {"success": status, "payload": payload}
