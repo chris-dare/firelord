@@ -6,3 +6,4 @@ pandas
 sklearn
 streamlit
 uvicorn
+xgboost
