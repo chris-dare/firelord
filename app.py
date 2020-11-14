@@ -35,10 +35,18 @@ if st.button("Predict burn area"):
     profile["landcover_5"] = float(land_cover)
 
     payload = json.dumps(profile)
+    st.write("Posting")
+    st.write(payload)
     response = requests.post(f"{base_url}/score", data=payload)
     data = response.json()
-    st.write(data)
-
-    burn_area = f"Burn area is {2}"
-    st.title(burn_area)
+    output = "An error occured"
+    if data["success"]:
+        burn_area = data["payload"]
+        burn_area = round(burn_area, 2)
+        if burn_area > 0:
+            output = f"Burn area is {burn_area}"
+        else:
+            output = f"No fire, congratulations"
+        
+    st.title(output)
     
