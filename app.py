@@ -36,7 +36,6 @@ if st.button("Predict burn area"):
 
     payload = json.dumps(profile)
     response = requests.post(f"{base_url}/score", data=payload)
-    st.write(payload)
     data = response.json()
     st.write(data)
 
