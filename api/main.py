@@ -22,8 +22,9 @@ def root():
 def score(profile: LandProfile):
     # return profile.dict()
     features = pd.DataFrame(profile.dict(), index=[0])
-    payload = model.predict(features)
+    payload = model.predict(features)[0]
     # payload = features
     print(payload)
-    status = True 
+    status = True
     response = {"success": status, "payload": payload}
+    return response
