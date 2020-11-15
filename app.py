@@ -2,8 +2,6 @@
 This runs on sreamlit
 """
 # Author: Christopher Dare
-#         Felipe Aguirre Martinez
-#         Gilbert Tumusabe
 import json
 
 import pandas as pd
