@@ -1,4 +1,4 @@
-"""The :mod:`consignment.data` module contains functions to load the iris dataset.
+"""The :mod:`firelord.data` module contains functions to load the fires dataset.
 """
 # Author: Chris Dare
 
