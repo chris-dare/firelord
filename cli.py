@@ -41,6 +41,7 @@ def main(
         "landcover_5",
     ]
     training_data = get_training_dataset()
+    date_split = "2013-01-01"
     train_ = training_data.loc[training_data.date < date_split]
     valid_ = training_data.loc[training_data.date > date_split]
     date_split = "2013-01-01"
