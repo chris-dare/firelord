@@ -73,7 +73,16 @@ streamlit run app.py
 
 3. The cli for retraining the model
 The entry point is `./cli.py`
+```bash
+python cli.py
+```
+View arguments
+```bash
+python cli.py
+```
 This is currently buggy, I will update the code next (hopefully) unless someone beats me to it with a pull request.
+Update (26-Nov): PR didn't come through. Fixed the obvious import errors.
+There's one more fix to make this fully functional. See if you can identify it when you run the cli. Otherwise, I'll fix it next week.
 
 ** Comprehensive documentation will follow soon.
 
