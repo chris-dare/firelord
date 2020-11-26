@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Optional, List
 
 import pandas as pd
-import LGBMRegressor, XGBRegressor
+import lightgbm as lgb
+import xgboost as xgb
+from catboost import CatBoostRegressor
 from sklearn.ensemble import RandomForestRegressor, VotingRegressor
 from sklearn.linear_model import RidgeCV
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
